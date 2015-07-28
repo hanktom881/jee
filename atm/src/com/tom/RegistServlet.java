@@ -32,40 +32,13 @@ public class RegistServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String password2 = request.getParameter("password2");
 		String email = request.getParameter("email");
-		boolean checked = true;
-		StringBuilder error = new StringBuilder();
-		if (userid!=null && nickname!=null){
-			if (userid.length()<4){
-				checked = false;
-				error.append("帳號至少4個字元</br>");
-			}
-			if (password.length()<4){
-				checked = false;
-				error.append("密碼至少4個字元</br>");
-			}
-			if (!password.equals(password2)){
-				checked = false;
-				error.append("密碼不一致</br>");
-			}
-			if (email.indexOf("@")==-1){
-				checked = false;
-				error.append("E-mail格式不符</br>");
-			}
-			if (checked){
-				//insert 
-				
-			}else {
-				// go back to reg.jsp
-				HttpSession session = request.getSession();
-				session.setAttribute("error", error.toString());
-				session.setAttribute("userid", userid);
-				session.setAttribute("password", password);
-				session.setAttribute("password2", password2);
-				session.setAttribute("nickname", nickname);
-				session.setAttribute("email", email);
-				
-				response.sendRedirect("reg.jsp");
-			}
+		Member m = new Member(userid, nickname, password, password2, email);
+		if (m.check()){
+			
+		}else{
+			HttpSession session = request.getSession();
+			session.setAttribute("member", m);
+			response.sendRedirect("reg.jsp");
 		}
 		
 		
