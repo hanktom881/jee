@@ -57,7 +57,7 @@ public class ProductServlet extends HttpServlet {
 			System.out.println(json);
 			
 			//
-			gson.fromJson(json, ArrayList.class<Product>);
+//			gson.fromJson(json, ArrayList.class<Product>);
 			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
