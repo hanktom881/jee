@@ -32,9 +32,12 @@ public class RegistServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String password2 = request.getParameter("password2");
 		String email = request.getParameter("email");
+		System.out.println(nickname);
+		
 		Member m = new Member(userid, nickname, password, password2, email);
 		if (m.check()){
-			
+			m.save();
+			response.sendRedirect("reg_success.jsp");
 		}else{
 			HttpSession session = request.getSession();
 			session.setAttribute("member", m);

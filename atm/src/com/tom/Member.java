@@ -1,5 +1,10 @@
 package com.tom;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 public class Member {
 	String userid;
 	String nickname;
@@ -90,6 +95,39 @@ public class Member {
 
 	public void setError(String error) {
 		this.error = error;
+	}
+
+	public void save() {
+		Connection conn = null;
+		String sql = "INSERT INTO member(userid,password,nickname,email) VALUES(?,?,?,?)";
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager
+				.getConnection("jdbc:mysql://j.snpy.org/j104?user=j104&password=104jabc&useUnicode=true&characterEncoding=UTF-8");
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			pstmt.setString(2, password);
+			pstmt.setString(3, nickname);
+			pstmt.setString(4, email);
+			int rowCount = pstmt.executeUpdate();
+			pstmt.close();
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	
+		
 	}
 
 }

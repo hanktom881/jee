@@ -12,8 +12,11 @@ public class MySQLTester {
 		Connection conn = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
+			
 			conn = DriverManager
-				.getConnection("jdbc:mysql://j.snpy.org/atm?user=j104&password=104jabc");
+				.getConnection("jdbc:mysql://j.snpy.org/atm?user=j104&password=104jabc&useUnicode=true&characterEncoding=UTF-8");
+			//																		useUnicode=true
+			//																		characterEncoding=UTF-8
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery("select * from users");
 			while(rs.next()){
