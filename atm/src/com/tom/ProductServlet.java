@@ -55,7 +55,11 @@ public class ProductServlet extends HttpServlet {
 			Gson gson = new Gson();
 			String json = gson.toJson(products);
 			System.out.println(json);
-			
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("application/json");
+//			byte[] b = json.getBytes("UTF-8");
+//			response.getOutputStream().write(b, 0, b.length);
+			response.getWriter().append(json);
 			//
 //			gson.fromJson(json, ArrayList.class<Product>);
 			
@@ -69,7 +73,7 @@ public class ProductServlet extends HttpServlet {
 
 		
 		
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
